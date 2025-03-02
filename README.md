@@ -23,7 +23,7 @@ Click and drag the X axis to pan in time.
 
 * OSX - Navigate to the [releases](https://github.com/sounddrill31/Pixelpulse2/releases) and collect the latest `pixelpulse2-<OS-version>.dmg` package, specific for you OS version.
 * Windows - For a testing build, download the dependency package and the latest binary build from [appveyor](https://ci.appveyor.com/project/sounddrill31/Pixelpulse2/build/artifacts). For an official release build, navigate to releases and collect the latest pixelpulse2-setup.exe.
-* Linux - Follow the instructions at https://sounddrill31.github.io/Pixelpulse2 for my personal AppImage builds
+* Linux - Follow the instructions at https://sounddrill31.github.io/Pixelpulse2 for easy, step by step instructions. 
 #### Advanced
 
 To build from source on any platform, you need to install a C++ compiler toolchain, collect the build dependencies, setup your build environment, and compile the project.
