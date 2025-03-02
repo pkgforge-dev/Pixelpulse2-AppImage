@@ -204,7 +204,7 @@ jobs:
             ./sharun -g
           )
 
-          wget "https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-$ARCH.AppImage" -O appimagetool
+          wget "https://github.com/pkgforge-dev/appimagetool-uruntime/releases/download/continuous/appimagetool-$ARCH.AppImage" -O appimagetool
           chmod +x ./appimagetool
           ./appimagetool --comp zstd \
           	--mksquashfs-opt -Xcompression-level --mksquashfs-opt 22 \
