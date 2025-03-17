@@ -7,6 +7,7 @@ if [ ! -f "/etc/udev/rules.d/53-adi-m1k-usb.rules" ]; then
 	echo "/etc/udev/rules.d/53-adi-m1k-usb.rules file not found!"
 	echo "Ignore if udev is not supported by your system"
 	echo "To fix this, rerun this command with --getudev"
+	notify-send -u critical "/etc/udev/rules.d/53-adi-m1k-usb.rules file not found! To fix this, rerun this command with --getudev for the first time when setting up" || true # Send a user prompt but ignore errors, in case it doesn't exist
 fi
 
 if [ "$1" = '--getudev' ]; then
