@@ -36,6 +36,7 @@ if [ "$1" = '--getudev' ]; then
 	fi
 fi
 if [[ -z "$QT_QPA_PLATFORM" || "$QT_QPA_PLATFORM" =~ "wayland" ]]; then 
+	echo "Overriding to xcb for now..."
 	QT_QPA_PLATFORM=xcb; # Override wayland for now
 fi
 # Continue with application execution
