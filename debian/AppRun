@@ -35,6 +35,8 @@ if [ "$1" = '--getudev' ]; then
 		echo "Udev rules successfully created"
 	fi
 fi
-
+if [[ -z "$QT_QPA_PLATFORM" || "$QT_QPA_PLATFORM" =~ "wayland" ]]; then 
+	QT_QPA_PLATFORM=xcb; # Override wayland for now
+fi
 # Continue with application execution
 exec "$CURRENTDIR"/bin/pixelpulse2 "$@"
