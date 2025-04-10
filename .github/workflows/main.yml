@@ -204,11 +204,14 @@ jobs:
             ./sharun -g
           )
 
-          wget "https://github.com/pkgforge-dev/appimagetool-uruntime/releases/download/continuous/appimagetool-$ARCH.AppImage" -O appimagetool
-          chmod +x ./appimagetool
-          ./appimagetool --comp zstd \
-          	--mksquashfs-opt -Xcompression-level --mksquashfs-opt 22 \
-          	-n "$PWD"/AppDir "$PWD"/"$APP"-"$VERSION"-anylinux-"$ARCH".AppImage
+          wget "https://github.com/VHSgunzo/uruntime/releases/latest/download/uruntime-appimage-dwarfs-$ARCH" -O uruntime
+          chmod +x ./uruntime
+          ./uruntime --appimage-mkdwarfs -f \
+          	--set-owner 0 --set-group 0 \
+          	--no-history --no-create-timestamp \
+          	--compression zstd:level=22 -S26 -B32 \
+          	--header uruntime \
+          	-i ./AppDir -o "$APP"-"$VERSION"-anylinux-"$ARCH".AppImage
 
           # List the generated AppImage
           ls -l Pixelpulse2*.AppImage
