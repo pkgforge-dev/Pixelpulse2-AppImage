@@ -145,7 +145,7 @@ jobs:
       if: runner.os == 'Linux'
       run: |
           export ARCH="$(uname -m)"
-          export VERSION=test
+          export VERSION="$(echo "$GITHUB_SHA" | cut -c 1-9)"
           export APP=Pixelpulse2
 
           # Prepare AppDir structure
