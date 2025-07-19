@@ -211,7 +211,7 @@ jobs:
           	--no-history --no-create-timestamp \
           	--compression zstd:level=22 -S26 -B32 \
           	--header uruntime \
-          	-i ./AppDir -o "$APP"-"$VERSION"-anylinux-"$ARCH".AppImage
+          	-i ./AppDir -o "$APP"-anylinux-"$ARCH".AppImage
 
           # List the generated AppImage
           ls -l Pixelpulse2*.AppImage
