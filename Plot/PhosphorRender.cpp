@@ -71,6 +71,7 @@ public:
     QMatrix4x4 transformation;
     float pointSize;
     QColor color;
+    bool useSimpleRender = false;
 };
 
 void Shader::updateState(const RenderState &state, QSGMaterial *newMaterial, QSGMaterial *oldMaterial)
@@ -87,9 +88,17 @@ void Shader::updateState(const RenderState &state, QSGMaterial *newMaterial, QSG
 
     program()->setUniformValue(m_id_color, m->color);
 
-    m_glFuncs->glBlendFunc(GL_ONE, GL_ONE);
-    m_glFuncs->glEnable(GL_POINT_SPRITE);
+    // Check for software rendering mode
+    if (!m->useSimpleRender) {
+        // Original fancy rendering with point sprites
+        m_glFuncs->glBlendFunc(GL_ONE, GL_ONE);
+        m_glFuncs->glEnable(GL_POINT_SPRITE);
     // glPointSize(m->pointSize); // Commenting this out since it is not available in QOpenGLFunctions (OpenGL ES 2.0) and apparently does not affect the point size
+     } else {
+        // Simple rendering that works in software mode
+        m_glFuncs->glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        // Skip enabling point sprites in software mode
+    }
 }
 
 PhosphorRender::PhosphorRender(QQuickItem *parent)
@@ -160,6 +169,15 @@ QSGNode *PhosphorRender::updatePaintNode(QSGNode *oldNode, UpdatePaintNodeData *
         m_ybuffer->toVertexData(m_xmin, m_xmax, verticies, n_points);
     }
     node->markDirty(QSGNode::DirtyGeometry | QSGNode::DirtyMaterial);
+
+    // Check if we're using software rendering
+    bool usingSoftwareRenderer = QQuickWindow::sceneGraphBackend() == "software" 
+                              || !qgetenv("QT_QUICK_BACKEND").isEmpty();
+
+    // After material is created:
+    if (usingSoftwareRenderer) {
+        material->useSimpleRender = true;
+    }
 
     return node;
 }
