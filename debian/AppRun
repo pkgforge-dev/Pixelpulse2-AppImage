@@ -4,7 +4,9 @@ set -e
 CURRENTDIR="$(dirname "$(readlink -f "$0")")"
 
 # wayland doesn't work
-export QT_QPA_PLATFORM=xcb
+if [ -z "$I_WANT_A_BROKEN_WAYLAND_UI" ]; then
+	export QT_QPA_PLATFORM=xcb
+fi
 
 if [ ! -f "/etc/udev/rules.d/53-adi-m1k-usb.rules" ]; then
 	echo "/etc/udev/rules.d/53-adi-m1k-usb.rules file not found!"
