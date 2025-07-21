@@ -3,6 +3,11 @@ set -e
 
 CURRENTDIR="$(dirname "$(readlink -f "$0")")"
 
+# wayland doesn't work
+if [ -z "$I_WANT_A_BROKEN_WAYLAND_UI" ]; then
+	export QT_QPA_PLATFORM=xcb
+fi
+
 if [ ! -f "/etc/udev/rules.d/53-adi-m1k-usb.rules" ]; then
 	echo "/etc/udev/rules.d/53-adi-m1k-usb.rules file not found!"
 	echo "Ignore if udev is not supported by your system"
@@ -35,9 +40,6 @@ if [ "$1" = '--getudev' ]; then
 		echo "Udev rules successfully created"
 	fi
 fi
-if [[ -z "$QT_QPA_PLATFORM" || "$QT_QPA_PLATFORM" =~ "wayland" ]]; then 
-	echo "Overriding to xcb for now..."
-	QT_QPA_PLATFORM=xcb; # Override wayland for now
-fi
+
 # Continue with application execution
 exec "$CURRENTDIR"/bin/pixelpulse2 "$@"
